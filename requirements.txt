@@ -1,0 +1,6 @@
+torch
+torchvision
+PIL
+tarfile
+matplotlib
+numpy
