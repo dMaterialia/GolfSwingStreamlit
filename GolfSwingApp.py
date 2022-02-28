@@ -63,11 +63,11 @@ def load_data(choi):
 
     predictions=model(imgTens)
     
-    return predictions,imgLocAll,cda2, imgs
+    return predictions,imgLocAll,cda2, imgs,imgAll
 
 data_load_state = st.text('Loading data...')
 useME = 3
-predictions,imgLocAll,cda2, imgs=load_data(useME)
+predictions,imgLocAll,cda2, imgs, imgAll=load_data(useME)
 data_load_state.text("Loaded data (using st.cache)")
 
 
@@ -81,6 +81,7 @@ imgSEL = st.sidebar.selectbox(
 imgLocAll
 useME
 imgs
+imgAll[0:10]
 
 img = mpimg.imread(cda2+'/images/'+imgSEL)
 
