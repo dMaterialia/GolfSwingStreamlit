@@ -18,7 +18,7 @@ st.title('Golf Swing')
 def load_data(choi):
 
     cda = os.getcwd()
-    cda2=cda+'/content/'
+    cda2=cda
     my_tar = tarfile.open(cda2+'/GC2.tgz')
     my_tar.extractall(cda2) # specify which folder to extract to
     my_tar.close()
@@ -27,7 +27,7 @@ def load_data(choi):
     vidAll=[]
     i=0
     last1=' '
-    for xx in os.listdir(cda2+'images/'):
+    for xx in os.listdir(cda2+'/images/'):
         if xx[-1]=='g':
             imgAll = np.append(imgAll, xx)
             if xx.split('_')[1]!=last1:
@@ -55,7 +55,7 @@ def load_data(choi):
     for ii,image_filename in enumerate(imgs):
     #             print(cda2+'images/'+image_filename)
         if ii in iiUse:
-            number_img = Image.open(cda2+'images/'+image_filename)
+            number_img = Image.open(cda2+'/images/'+image_filename)
             convert_tensor = transforms.ToTensor()
             number_img=convert_tensor(number_img)
             imgTens.append(number_img)
@@ -80,7 +80,7 @@ imgSEL = st.sidebar.selectbox(
 
 
 
-img = mpimg.imread(cda2+'images/'+imgSEL)
+img = mpimg.imread(cda2+'/images/'+imgSEL)
 
 numSEL=[oo for oo,x in enumerate(choice) if x==imgSEL][0]
 
