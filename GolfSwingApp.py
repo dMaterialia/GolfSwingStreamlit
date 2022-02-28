@@ -29,7 +29,7 @@ def load_data(choi):
     i=0
     last1=' '
     fls=os.listdir(cda2+'/images/')
-    fls=np.sort(fls)
+    fls=sorted(fls)
     for xx in fls:
         if xx[-1]=='g':
             imgAll = np.append(imgAll, xx)
