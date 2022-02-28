@@ -63,11 +63,11 @@ def load_data(choi):
 
     predictions=model(imgTens)
     
-    return predictions,imgLocAll,cda2, imgs,imgAll, vidAllUnq, vidAll
+    return predictions,imgLocAll,cda2, imgs,imgAll, vidAllUnq
 
 data_load_state = st.text('Loading data...')
 useME = 3
-predictions,imgLocAll,cda2, imgs, imgAll, vidAllUnq, vidAll=load_data(useME)
+predictions,imgLocAll,cda2, imgs, imgAll, vidAllUnq=load_data(useME)
 data_load_state.text("Loaded data (using st.cache)")
 
 
@@ -82,7 +82,6 @@ imgLocAll
 useME
 imgs
 imgAll
-vidAll
 vidAllUnq
 
 img = mpimg.imread(cda2+'/images/'+imgSEL)
