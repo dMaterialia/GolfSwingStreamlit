@@ -25,6 +25,7 @@ def load_data(choi):
 
     imgAll=[]
     vidAll=[]
+    last1All=[]
     i=0
     last1=' '
     for xx in os.listdir(cda2+'/images/'):
@@ -34,6 +35,7 @@ def load_data(choi):
                 i=i+1
             vidAll=np.append(vidAll,i)
             last1=xx.split('_')[1]
+        last1All.append(last1)
 
     vidAllUnq=np.unique(vidAll)
     
@@ -63,11 +65,11 @@ def load_data(choi):
 
     predictions=model(imgTens)
     
-    return predictions,imgLocAll,cda2, imgs,imgAll, vidAllUnq
+    return predictions,imgLocAll,cda2, imgs,imgAll, vidAllUnq, last1All
 
 data_load_state = st.text('Loading data...')
 useME = 3
-predictions,imgLocAll,cda2, imgs, imgAll, vidAllUnq=load_data(useME)
+predictions,imgLocAll,cda2, imgs, imgAll, vidAllUnq, last1All=load_data(useME)
 data_load_state.text("Loaded data (using st.cache)")
 
 
@@ -77,12 +79,18 @@ choice=imgLocAll
 imgSEL = st.sidebar.selectbox(
     'Select how to search',
      choice)
-
+'imgLocAll='
 imgLocAll
+'useME ='
 useME
+'imgs='
 imgs
+'imgAll='
 imgAll
+'vidAllUnq='
 vidAllUnq
+'last1All='
+last1All
 
 img = mpimg.imread(cda2+'/images/'+imgSEL)
 
