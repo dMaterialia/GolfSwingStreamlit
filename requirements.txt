@@ -1,6 +1,5 @@
 torch
 torchvision
 Pillow
-tarfile
 matplotlib
 numpy
