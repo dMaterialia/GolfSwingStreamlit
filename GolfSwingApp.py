@@ -28,7 +28,9 @@ def load_data(choi):
     last1All=[]
     i=0
     last1=' '
-    for xx in os.listdir(cda2+'/images/'):
+    fls=os.listdir(cda2+'/images/')
+    fls=np.sort(fls)
+    for xx in fls:
         if xx[-1]=='g':
             imgAll = np.append(imgAll, xx)
             if xx.split('_')[1]!=last1:
