@@ -81,8 +81,8 @@ imgSEL = st.sidebar.selectbox(
 imgLocAll
 useME
 imgs
-imgAll[0:10]
-vidAll[0:10]
+imgAll
+vidAll
 vidAllUnq
 
 img = mpimg.imread(cda2+'/images/'+imgSEL)
