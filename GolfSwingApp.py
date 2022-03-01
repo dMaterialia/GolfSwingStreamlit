@@ -14,7 +14,7 @@ import matplotlib.image as mpimg
 
 st.title('Golf Swing')
 
-@st.cache()
+@st.cache(allow_output_mutation=True)
 def load_data(choi):
 
     cda = os.getcwd()
