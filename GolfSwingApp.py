@@ -23,47 +23,54 @@ def load_data(choi):
     my_tar.extractall(cda2) # specify which folder to extract to
     my_tar.close()
 
-    imgAll=[]
+    # file names
+    fls=os.listdir(cda2+'/images/')
+    # frame of video
+    frame=[]
+    # video name
     vidAll=[]
-    i=0
-    last1=' '
-    for xx in os.listdir(cda2+'/images/'):
-        if xx[-1]=='g':
-            imgAll = np.append(imgAll, xx)
-            if xx.split('_')[1]!=last1:
-                i=i+1
-            vidAll=np.append(vidAll,i)
-            last1=xx.split('_')[1]
+    # file name image only 
+    flsImg=[]
 
+    for xx in fls:
+        # file names that are images
+        if xx[-1]=='g':
+            flsImg.append(xx)
+            frame.append(int(xx.split('_')[-1].split('e')[1].split('.')[0]))
+            vidAll.append( xx.split('_')[1] )
+
+    # the unique videos
     vidAllUnq=np.unique(vidAll)
+
+    # the image name & frame for file of video used
+    flsUse, frameUse=[], []
+    for ii,xx in enumerate(vidAll):
+        if xx==vidAllUnq[choi]:
+            flsUse=np.append(flsUse, flsImg[ii] )
+            frameUse=np.append(frameUse, frame[ii] )
+
+    # make sure order is correct based on number of frame
+    ind=sorted(range(len(frameUse)), key=lambda k: frameUse[k])
+    flsUse=flsUse[ind]
+    print(flsUse)
+    # use only the 0th, 3rd and 5th value
+    iiUse=[0,3,5]
+    flsUse=[x for ii,x in enumerate(flsUse) if ii in iiUse]
     
+    # the tensor of images
+    imgTens=[]
+    for ii,image_filename in enumerate(flsUse):
+        number_img = Image.open(cda2+'/images/'+image_filename)
+        convert_tensor = transforms.ToTensor()
+        number_img=convert_tensor(number_img)
+        imgTens.append(number_img)
 
     model = torchvision.models.detection.keypointrcnn_resnet50_fpn(pretrained=True)
     model.eval()
     
-    imgs = imgAll[vidAll==vidAllUnq[choi]]
-
-    # make sure in correct order
-    aa=[int(xx.split('_')[-1].split('e')[1].split('.')[0]) for xx in imgs]
-    ind=sorted(range(len(aa)), key=lambda k: aa[k])
-    imgs=imgs[ind]
-
-    # create list of image locs
-    imgTens=[]
-    imgLocAll=[]
-    iiUse=[0,3,5]
-    for ii,image_filename in enumerate(imgs):
-    #             print(cda2+'images/'+image_filename)
-        if ii in iiUse:
-            number_img = Image.open(cda2+'/images/'+image_filename)
-            convert_tensor = transforms.ToTensor()
-            number_img=convert_tensor(number_img)
-            imgTens.append(number_img)
-            imgLocAll.append(image_filename)
-
     predictions=model(imgTens)
     
-    return predictions,imgLocAll,cda2
+    return predictions,flsUse,cda2
 
 data_load_state = st.text('Loading data...')
 predictions,imgLocAll,cda2=load_data(2)
@@ -76,8 +83,6 @@ choice=imgLocAll
 imgSEL = st.sidebar.selectbox(
     'Select how to search',
      choice)
-
-imgLocAll
 
 
 img = mpimg.imread(cda2+'/images/'+imgSEL)
