@@ -11,7 +11,7 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-import scipy.ndimage as ndimage
+
 # import scipy.misc
 # from GSaddons import *
 
