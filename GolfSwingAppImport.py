@@ -11,7 +11,8 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-
+import scipy.ndimage as ndimage
+# import scipy.misc
 # from GSaddons import *
 
 st.title('Golf Swing')
@@ -95,7 +96,7 @@ def doPlot(imgSEL,imgTensName,LEG,pointsAll):
     fig=plt.figure(figsize=(7,7))
     
     img = mpimg.imread(uploaded_files[numSEL])
-    img = ndimage.rotate(img, degree*270)
+    img = ndimage.rotate(img, 270)
     plt.imshow(img)
         
    
