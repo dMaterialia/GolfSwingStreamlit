@@ -136,6 +136,7 @@ def load_data():
         bytes_data = uploaded_file.read()
 
         number_img = Image.open(uploaded_file)
+        number_img = number_img.transpose(Image.ROTATE_90)
 
         convert_tensor = transforms.ToTensor()
         number_img=convert_tensor(number_img)
@@ -164,12 +165,10 @@ def load_data():
         points1=np.array([x.detach().numpy()[0:2] for x in predictions[numSEL]['keypoints'][0]])
 
         pointsAll.append(points1)
-#         angAll=[]
+
         for iv,v in enumerate(vects):
             posA=points1[v[0],:]
             posB=points1[v[1],:]
-#             angAll.append( angleUse(posA,posB) )
-#         df.insert(numSEL+1,numSEL, angAll)
 
     return imgTensName, uploaded_files, pointsAll,LEG
 
