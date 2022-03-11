@@ -95,6 +95,7 @@ def doPlot(imgSEL,imgTensName,LEG,pointsAll):
     fig=plt.figure(figsize=(7,7))
     
     img = mpimg.imread(uploaded_files[numSEL])
+    img = ndimage.rotate(img, degree*270)
     plt.imshow(img)
         
    
@@ -136,7 +137,7 @@ def load_data():
         bytes_data = uploaded_file.read()
 
         number_img = Image.open(uploaded_file)
-        number_img = number_img.transpose(Image.ROTATE_90)
+        number_img = number_img.transpose(Image.ROTATE_270)
 
         convert_tensor = transforms.ToTensor()
         number_img=convert_tensor(number_img)
